@@ -12,5 +12,23 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0",
     "webpack-merge": "^6.0.1"
-  }
+  },
+  "name": "top-todo",
+  "version": "1.0.0",
+  "description": "todolist",
+  "main": "webpack.common.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peasnrice/top-ToDo.git"
+  },
+  "keywords": [
+    "todo",
+    "list"
+  ],
+  "author": "Andrew Evans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peasnrice/top-ToDo/issues"
+  },
+  "homepage": "https://github.com/peasnrice/top-ToDo#readme"
 }

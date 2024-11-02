@@ -1,0 +1,32 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-content: center;
+}
+
+header div {
+  text-align: center;
+  padding: 1rem;
+}
+
+header div:first-child {
+  text-align: left;
+}
+
+header div:last-child {
+  text-align: right;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}

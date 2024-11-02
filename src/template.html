@@ -3,7 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Yet Another ToDo List</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div id="logo">ToDo</div>
+      <div id="nav">or not</div>
+      <div id="account">ToDo</div>
+    </header>
+    <div id="container">
+      <button id="create-project-btn">Add Project</button>
+      <div id="project-create-form-container" class="hidden">
+        <form id="project-form" action="create-project">
+          <div class="form-element title">
+            <label for="project-title">Title</label>
+            <input type="text" name="project-title" id="project-title" />
+          </div>
+          <div class="form-element">
+            <label for="project-description">Description</label>
+            <input
+              type="text"
+              name="project-description"
+              id="project-description"
+            />
+          </div>
+          <button id="submit-project-btn">Create Project</button>
+        </form>
+      </div>
+
+      <button id="create-to-do-btn">Create ToDo</button>
+      <div id="todo-create-form-container">
+        <form id="todo-form" action="create-todo">
+          <div class="form-element title">
+            <label for="todo-title">Title</label>
+            <input type="text" name="todo-title" id="todo-title" />
+          </div>
+          <div class="form-element">
+            <label for="todo-description">Description</label>
+            <input type="text" name="todo-description" id="todo-description" />
+          </div>
+          <div class="form-element hidden">
+            <label for="todo-create-date">Create Date</label>
+            <input type="text" name="todo-create-date" id="todo-create-date" />
+          </div>
+          <div class="form-element">
+            <label for="todo-due-date">Due Date</label>
+            <input type="date" name="todo-due-date" id="todo-due-date" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

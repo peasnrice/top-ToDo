@@ -1,23 +1,82 @@
 // Project.js
+import { ToDo } from "./ToDo.js";
+
+// Create some sample todos
+const sampleTodos = [
+  new ToDo(
+    "Create Wireframes",
+    "Design wireframes for the homepage and key pages.",
+    "2024-11-01",
+    "2024-11-10",
+    "blue",
+    "high",
+    "Use Figma for wireframing.",
+    false
+  ),
+  new ToDo(
+    "Backend API Development",
+    "Develop RESTful APIs for user authentication and data handling.",
+    "2024-11-02",
+    "2024-11-20",
+    "green",
+    "medium",
+    "Ensure proper documentation with Swagger.",
+    false
+  ),
+];
+
+// pre-populated projects for testing
+const projects = [
+  new Project(
+    "Website Redesign",
+    "Redesign the company website to improve user experience and mobile responsiveness."
+  ),
+  new Project(
+    "Mobile App Launch",
+    "Develop and launch the new mobile app for iOS and Android."
+  ),
+  new Project(
+    "Marketing Campaign",
+    "Plan and execute the Q4 marketing campaign for the new product release."
+  ),
+  new Project(
+    "Customer Feedback System",
+    "Implement a system to collect and analyze customer feedback in real-time."
+  ),
+  new Project(
+    "Internal Dashboard",
+    "Create an internal dashboard for tracking key business metrics."
+  ),
+];
+
+// Add dummy todo content to all projects
+projects.forEach((project, index) => {
+  sampleTodos.forEach((todo, index) => {
+    project.addToDoToProject(todo);
+  });
+});
 
 // define project factory
 function Project(title, description) {
-  let todoArray = [];
+  let todos = [];
 
-  return { title, description, todoArray };
+  function addToDoToProject(todo) {
+    todos.push(todo);
+  }
+
+  function getToDos() {
+    return todos;
+  }
+
+  return { title, description, addToDoToProject, getToDos };
 }
 
-// define projectArray
-const projectArray = [Project];
-
 // find key elements on the page to watch
+const projectCards = document.getElementById("project-cards");
 const projectFormBtn = document.getElementById("create-project-btn");
 const projectFormContainer = document.getElementById(
   "project-create-form-container"
 );
-const submitProjectBtn = document.getElementById("submit-project-btn");
-const projectDescriptionInput = document.getElementById("project-description");
-const projectTitleInput = document.getElementById("project-title");
 
 projectFormBtn.addEventListener("click", () => {
   // toggle display of project form container
@@ -36,33 +95,6 @@ function toggleElementVisibility(element) {
   element.classList.toggle("hidden");
 }
 
-submitProjectBtn.addEventListener("click", (event) => {
-  // prevent submit default behaviour
-  event.preventDefault();
-
-  // get target from event
-  let target = event.target;
-
-  if (
-    projectTitleInput.value.length <= 20 &&
-    projectTitleInput.value.length > 0
-  ) {
-    // create new project from form values
-    const projectTitle = document.getElementById("project-title").value;
-    const projectDescription = document.getElementById(
-      "project-description"
-    ).value;
-    const newProject = Project(projectTitle, projectDescription);
-
-    // push project to project array
-    projectArray.push(newProject);
-    setElementVisibility(projectFormContainer, false);
-    setElementVisibility(projectFormBtn, true);
-    projectTitleInput.value = "";
-    projectDescriptionInput.value = "";
-  }
-});
-
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
 
 cancelProjectBtn.addEventListener("click", () => {
@@ -72,6 +104,11 @@ cancelProjectBtn.addEventListener("click", () => {
   projectDescriptionInput.value = "";
 });
 
-function drawProjects() {
-  // hid project card container
-}
+export {
+  Project,
+  projects,
+  projectFormContainer,
+  projectFormBtn,
+  setElementVisibility,
+  toggleElementVisibility,
+};

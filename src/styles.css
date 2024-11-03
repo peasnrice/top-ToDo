@@ -45,11 +45,22 @@ header div:last-child {
   justify-content: start;
 }
 
+#project-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .project-card {
   border: 1px solid black;
 }
 
-#todo-container {
+.project-card:hover {
+  cursor: pointer;
+  background-color: rgba(0, 251, 255, 0.5);
+}
+
+#project-container {
   display: flex;
   flex-direction: column;
 }
@@ -85,7 +96,7 @@ header div:last-child {
   text-align: center;
 }
 
-#todo-container .project-details {
+#project-container .project-details {
   justify-content: center;
   text-align: left;
 }
@@ -108,4 +119,8 @@ header div:last-child {
 #add-project-container textarea {
   resize: none;
   max-width: 200px;
+}
+
+.selected {
+  background-color: aqua;
 }

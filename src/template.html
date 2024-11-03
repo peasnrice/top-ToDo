@@ -49,94 +49,70 @@
           </div>
         </div>
 
-        <div id="project-container">
-          <div class="project-details">
-            <h3>Project Title</h3>
-            <p>Project Description</p>
+        <div id="project-wrapper">
+          <div id="project-container">
+            <div class="project-details">
+              <h3>Project Title</h3>
+              <p>Project Description</p>
+            </div>
+            <div id="project-todos"></div>
           </div>
           <div id="project-todos">
             <div class="todo">
-              <div class="priority-buttons">
-                <button>U</button>
-                <button>D</button>
-              </div>
-              <input type="checkbox" name="todo-complete" id="todo-complete" />
-              <p class="todo-title">Todo Title</p>
-              <p class="todo-descriptions">Todo description</p>
-              <!-- <p class="todo-create-date">Nov 2, 2024</p> -->
-              <p class="todo-due-date">Nov 3, 2024</p>
-              <p class="todo-priority">1</p>
-              <p class="todo-notes">Todo note</p>
-            </div>
-            <div class="todo">
-              <div class="priority-buttons">
-                <button>U</button>
-                <button>D</button>
-              </div>
-              <input type="checkbox" name="todo-complete" id="todo-complete" />
-              <p class="todo-title">Todo Title</p>
-              <p class="todo-descriptions">Todo description</p>
-              <!-- <p class="todo-create-date">Nov 2, 2024</p> -->
-              <p class="todo-due-date">Nov 3, 2024</p>
-              <p class="todo-priority">2</p>
-              <p class="todo-notes">Todo note</p>
-            </div>
-            <div class="todo">
-              <div class="priority-buttons">
-                <button>U</button>
-                <button>D</button>
-              </div>
-              <input type="checkbox" name="todo-complete" id="todo-complete" />
-              <p class="todo-title">Todo Title</p>
-              <p class="todo-descriptions">Todo description</p>
-              <!-- <p class="todo-create-date">Nov 2, 2024</p> -->
-              <p class="todo-due-date">Nov 3, 2024</p>
-              <p class="todo-priority">3</p>
-              <p class="todo-notes">Todo note</p>
-            </div>
-            <div class="todo">
-              <div class="priority-buttons">
-                <button>U</button>
-                <button>D</button>
-              </div>
-              <input type="checkbox" name="todo-complete" id="todo-complete" />
-              <p class="todo-title">Todo Title</p>
-              <p class="todo-descriptions">Todo description</p>
-              <!-- <p class="todo-create-date">Nov 2, 2024</p> -->
-              <p class="todo-due-date">Nov 3, 2024</p>
-              <p class="todo-priority">4</p>
-              <p class="todo-notes">Todo note</p>
-            </div>
-            <button id="create-to-do-btn">Create ToDo</button>
-            <div id="todo-create-form-container" class="">
-              <form id="todo-form" action="create-todo">
-                <div class="form-element title">
-                  <label for="todo-title">Title</label>
-                  <input type="text" name="todo-title" id="todo-title" />
-                </div>
-                <div class="form-element">
-                  <label for="todo-description">Description</label>
+              <div class="todo-header">
+                <div class="left">
+                  <div class="priority-buttons">
+                    <button>U</button><button>D</button>
+                  </div>
                   <input
-                    type="text"
-                    name="todo-description"
-                    id="todo-description"
+                    type="checkbox"
+                    name="todo-complete"
+                    id="todo-complete"
                   />
+                  <p class="todo-title">Create Wireframes</p>
                 </div>
-                <div class="form-element hidden">
-                  <label for="todo-create-date">Create Date</label>
-                  <input
-                    type="text"
-                    name="todo-create-date"
-                    id="todo-create-date"
-                  />
+                <div class="right">
+                  <p class="todo-due-date">2024-11-10</p>
+                  <p class="todo-priority">high</p>
                 </div>
-                <div class="form-element">
-                  <label for="todo-due-date">Due Date</label>
-                  <input type="date" name="todo-due-date" id="todo-due-date" />
-                </div>
-                <button>Create ToDo</button>
-              </form>
+              </div>
+              <div class="todo-content">
+                <p class="todo-descriptions">
+                  Design wireframes for the homepage and key pages.
+                </p>
+                <p class="todo-notes">Use Figma for wireframing.</p>
+              </div>
             </div>
+          </div>
+          <button id="create-to-do-btn">Create ToDo</button>
+          <div id="todo-create-form-container" class="">
+            <form id="todo-form" action="create-todo">
+              <div class="form-element title">
+                <label for="todo-title">Title</label>
+                <input type="text" name="todo-title" id="todo-title" />
+              </div>
+              <div class="form-element">
+                <label for="todo-description">Description</label>
+                <input
+                  type="text"
+                  name="todo-description"
+                  id="todo-description"
+                />
+              </div>
+              <div class="form-element hidden">
+                <label for="todo-create-date">Create Date</label>
+                <input
+                  type="text"
+                  name="todo-create-date"
+                  id="todo-create-date"
+                />
+              </div>
+              <div class="form-element">
+                <label for="todo-due-date">Due Date</label>
+                <input type="date" name="todo-due-date" id="todo-due-date" />
+              </div>
+              <button>Create ToDo</button>
+            </form>
           </div>
         </div>
       </div>

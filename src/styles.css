@@ -96,6 +96,12 @@ header div:last-child {
   text-align: center;
 }
 
+#project-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
 #project-container .project-details {
   justify-content: center;
   text-align: left;
@@ -123,4 +129,37 @@ header div:last-child {
 
 .selected {
   background-color: aqua;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.todo-header {
+  display: flex;
+  width: 100%;
+}
+
+.todo .left,
+.todo .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 50%;
+}
+
+.todo .left {
+  justify-content: flex-start;
+}
+
+.todo .right {
+  justify-content: flex-end;
+}
+
+.todo-content {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
 }

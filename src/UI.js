@@ -17,11 +17,11 @@ function drawProjects(projects, selectedProjectIndex, updateSelectedIndex) {
     }
     projectCard.innerText = project.title;
     projectCard.addEventListener("click", () => {
-      projectCard.classList.add("selected");
       const oldSelectedProjectCard = document.getElementById(
         `project-card-${selectedProjectIndex}`
       );
       oldSelectedProjectCard.classList.remove("selected");
+      projectCard.classList.add("selected");
       selectedProjectIndex = index;
       updateSelectedIndex(index);
       drawProject(projects[index]);

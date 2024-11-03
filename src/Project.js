@@ -96,6 +96,8 @@ function toggleElementVisibility(element) {
 }
 
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
+const projectTitleInput = document.getElementById("project-title");
+const projectDescriptionInput = document.getElementById("project-description");
 
 cancelProjectBtn.addEventListener("click", () => {
   setElementVisibility(projectFormContainer, false);
@@ -104,11 +106,4 @@ cancelProjectBtn.addEventListener("click", () => {
   projectDescriptionInput.value = "";
 });
 
-export {
-  Project,
-  projects,
-  projectFormContainer,
-  projectFormBtn,
-  setElementVisibility,
-  toggleElementVisibility,
-};
+export { Project, projects, setElementVisibility, toggleElementVisibility };

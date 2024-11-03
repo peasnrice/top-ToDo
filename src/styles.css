@@ -3,8 +3,7 @@ body {
   flex-direction: column;
 }
 header {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   justify-content: center;
   align-content: center;
 }
@@ -25,8 +24,88 @@ header div:last-child {
 #container {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .hidden {
   display: none;
+}
+
+#project-todo-container {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  gap: 10px;
+}
+
+#project-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 200px;
+  justify-content: start;
+}
+
+.project-card {
+  border: 1px solid black;
+}
+
+#todo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#project-todos {
+  display: grid;
+  gap: 2px;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.priority-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.priority-buttons button {
+  width: 20px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.priority-buttons button:hover {
+  cursor: pointer;
+}
+
+.project-card {
+  text-align: center;
+}
+
+#todo-container .project-details {
+  justify-content: center;
+  text-align: left;
+}
+
+#add-project-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-project-container button {
+  min-width: 100%;
+}
+
+#add-project-container input {
+  max-width: 200px;
+}
+
+#add-project-container textarea {
+  resize: none;
+  max-width: 200px;
 }

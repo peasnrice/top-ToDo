@@ -11,6 +11,12 @@ function ToDo(
   complete
 ) {
   return {
+    getPriority: function () {
+      return priority;
+    },
+    setPriority: function (newPriority) {
+      priority = newPriority;
+    },
     title,
     description,
     create_date,
@@ -22,4 +28,9 @@ function ToDo(
   };
 }
 
-export { ToDo };
+function swapPriority(toDo1, toDo2) {
+  const tempPriority = toDo1.getPriority();
+  toDo1.setPriority(toDo2.getPriority());
+  toDo2.setPriority(tempPriority);
+}
+export { ToDo, swapPriority };

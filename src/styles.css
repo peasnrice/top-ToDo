@@ -163,3 +163,11 @@ header div:last-child {
   text-align: left;
   padding: 10px;
 }
+
+.todo:first .priority-up {
+  display: none;
+}
+
+.todo:last-child .priority-down {
+  display: none;
+}

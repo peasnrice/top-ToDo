@@ -82,7 +82,20 @@ function Project(title, description) {
     todos[indexB] = temp;
   }
 
-  return { title, description, addToDoToProject, getToDos, swapToDos };
+  function toggleCheckbox(index) {
+    console.log(todos[index]);
+    todos[index].complete = !todos[index].complete;
+    console.log(todos[index]);
+  }
+
+  return {
+    title,
+    description,
+    addToDoToProject,
+    getToDos,
+    swapToDos,
+    toggleCheckbox,
+  };
 }
 
 // find key elements on the page to watch
@@ -122,8 +135,6 @@ cancelProjectBtn.addEventListener("click", () => {
 
 const projectContainer = document.getElementById("project-container");
 projectContainer.addEventListener("click", (e) => {
-  e.preventDefault();
-
   console.log(e.target.id);
   const createToDoFormContainer = document.getElementById(
     "todo-create-form-container"
@@ -133,12 +144,13 @@ projectContainer.addEventListener("click", (e) => {
   const todoCreateDate = document.getElementById("todo-create-date");
   const todoDueDate = document.getElementById("todo-due-date");
   const projectIndex = document.getElementById("todo-project-index");
+  const toDoCancel = document.getElementById("todo-cancel");
 
   if (e.target && e.target.id === "create-to-do-btn") {
     e.preventDefault();
-
     setElementVisibility(createToDoFormContainer, true);
     setElementVisibility(e.target, false);
+    setElementVisibility(toDoCancel, true);
   }
 
   if (e.target && e.target.id === "todo-cancel") {
@@ -149,6 +161,7 @@ projectContainer.addEventListener("click", (e) => {
     document.getElementById("todo-description").value = "";
     document.getElementById("todo-create-date").value = "";
     document.getElementById("todo-due-date").value = "";
+    setElementVisibility(e.target, false);
   }
 
   if (e.target && e.target.id === "todo-create") {
@@ -198,6 +211,18 @@ projectContainer.addEventListener("click", (e) => {
     drawProject(projects[projectIndex.value], projectIndex.value);
     // Call function to decrease priority for the item at this index
   }
+
+  if (e.target && e.target.id.includes("todo-complete")) {
+    const index = parseInt(e.target.id.split("-")[2]);
+    console.log(index);
+    projects[projectIndex.value].toggleCheckbox(index);
+    drawProject(projects[projectIndex.value], projectIndex.value);
+  }
 });
+
+const projectToDos = document.getElementById("project-todos");
+// projectToDos.addEventListener("click", (e) => {
+//   let target = e.target;
+// });
 
 export { Project, projects, setElementVisibility, toggleElementVisibility };

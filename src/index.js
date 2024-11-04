@@ -48,6 +48,8 @@ submitProjectBtn.addEventListener("click", (event) => {
 
     console.log(`project index: ${projects.length - 1}`);
 
+    updateSelectedIndex(projects.length - 1);
+
     drawProjects(projects, projects.length - 1, updateSelectedIndex);
     drawProject(projects[projects.length - 1], selectedProjectIndex);
   }

@@ -63,6 +63,7 @@ header div:last-child {
 #project-container {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 #project-todos {
@@ -75,11 +76,14 @@ header div:last-child {
   justify-content: space-around;
   align-items: center;
   border: 1px solid black;
+  padding: 10px;
 }
 
 .priority-buttons {
   display: flex;
   flex-direction: row;
+  min-width: 40px;
+  justify-content: center;
 }
 
 .priority-buttons button {
@@ -170,4 +174,19 @@ header div:last-child {
 
 .todo:last-child .priority-down {
   display: none;
+}
+
+#todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#todo-form .form-element {
+  display: flex;
+  gap: 10px;
+}
+
+.complete {
+  background-color: forestgreen;
 }

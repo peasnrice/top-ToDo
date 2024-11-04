@@ -1,4 +1,5 @@
 //UI.js
+import { format, parseISO, isBefore, addDays } from "date-fns";
 
 // Initial setup for UI elements
 const projectContainer = document.getElementById("project-container");
@@ -56,6 +57,13 @@ function drawProject(project, selectedProjectIndex) {
   // Iterate over each todo item and create its DOM structure
   project.getToDos().forEach((todo, index) => {
     const todoElement = document.createElement("div");
+    todoElement.setAttribute("id", `todo-${index}`);
+
+    // if complete change background
+    if (todo.complete) {
+      todoElement.classList.add("complete");
+    }
+
     todoElement.classList.add("todo");
 
     // Create the todo-header
@@ -71,11 +79,11 @@ function drawProject(project, selectedProjectIndex) {
     const priorityUpBtn = document.createElement("button");
     priorityUpBtn.setAttribute("id", `priority-up-${index}`);
     priorityUpBtn.classList.add("priority-up");
-    priorityUpBtn.innerText = "U";
+    priorityUpBtn.innerText = "⬆️";
     const priorityDownBtn = document.createElement("button");
     priorityDownBtn.setAttribute("id", `priority-down-${index}`);
     priorityDownBtn.classList.add("priority-down");
-    priorityDownBtn.innerText = "D";
+    priorityDownBtn.innerText = "⬇️";
     priorityButtons.appendChild(priorityUpBtn);
     priorityButtons.appendChild(priorityDownBtn);
 
@@ -100,10 +108,15 @@ function drawProject(project, selectedProjectIndex) {
 
     const todoDueDate = document.createElement("p");
     todoDueDate.classList.add("todo-due-date");
-    todoDueDate.innerText = todo.due_date;
+    if (todo.due_date) {
+      todoDueDate.innerText = todo.due_date;
+    } else {
+      todoDueDate.innerText = "No Due Date";
+    }
 
     const todoPriority = document.createElement("p");
     todoPriority.classList.add("todo-priority");
+    todoPriority.classList.add("hidden");
     todoPriority.innerText = todo.priority;
 
     // Append elements to the right section
@@ -152,6 +165,10 @@ function drawProject(project, selectedProjectIndex) {
   todoFormContainer.setAttribute("id", "todo-create-form-container");
   todoFormContainer.classList.add("hidden");
 
+  const createToDoTitle = document.createElement("h3");
+  createToDoTitle.textContent = "Create new ToDo";
+  todoFormContainer.appendChild(createToDoTitle);
+
   const todoForm = document.createElement("form");
   todoForm.setAttribute("id", "todo-form");
   todoForm.setAttribute("action", "create-todo");
@@ -192,6 +209,8 @@ function drawProject(project, selectedProjectIndex) {
   createDateInput.type = "text";
   createDateInput.name = "todo-create-date";
   createDateInput.id = "todo-create-date";
+  createDateLabel.classList.add("hidden");
+  createDateInput.classList.add("hidden");
   formCreateDate.appendChild(createDateLabel);
   formCreateDate.appendChild(createDateInput);
 
@@ -211,6 +230,7 @@ function drawProject(project, selectedProjectIndex) {
   // create hidden form input to pass project index
   const formProjectInput = document.createElement("input");
   formProjectInput.setAttribute("id", "todo-project-index");
+  formProjectInput.classList.add("hidden");
   formProjectInput.value = selectedProjectIndex;
 
   // Create form submit button
@@ -221,9 +241,11 @@ function drawProject(project, selectedProjectIndex) {
   // Create form cancel button
   const formCancelButton = document.createElement("button");
   formCancelButton.setAttribute("id", "todo-cancel");
+  formCancelButton.classList.add("hidden");
   formCancelButton.innerText = "Cancel";
 
   // Append form elements to the form
+
   todoForm.appendChild(formTitle);
   todoForm.appendChild(formDescription);
   todoForm.appendChild(formCreateDate);
@@ -233,10 +255,10 @@ function drawProject(project, selectedProjectIndex) {
 
   // Append form and cancel button to the form container
   todoFormContainer.appendChild(todoForm);
-  todoFormContainer.appendChild(formCancelButton);
 
   // Append form container to the project container
   projectContainer.appendChild(todoFormContainer);
+  projectContainer.appendChild(formCancelButton);
 }
 
 export { drawProjects, drawProject };

@@ -133,6 +133,7 @@ projectContainer.addEventListener("click", (e) => {
   const todoCreateDate = document.getElementById("todo-create-date");
   const todoDueDate = document.getElementById("todo-due-date");
   const projectIndex = document.getElementById("todo-project-index");
+
   if (e.target && e.target.id === "create-to-do-btn") {
     e.preventDefault();
 
@@ -158,7 +159,6 @@ projectContainer.addEventListener("click", (e) => {
       todoCreateDate.value || new Date().toISOString().split("T")[0], // Default to today's date if empty
       todoDueDate.value,
       null, // Color can remain null if not provided
-      projects[projectIndex.value].getToDosLength(), // Set a default priority if not provided
       "", // Default notes to an empty string
       false // Default complete status
     );

@@ -24,7 +24,7 @@ function drawProjects(projects, selectedProjectIndex, updateSelectedIndex) {
       projectCard.classList.add("selected");
       selectedProjectIndex = index;
       updateSelectedIndex(index);
-      drawProject(projects[index]);
+      drawProject(projects[index], selectedProjectIndex);
     });
     projectCards.appendChild(projectCard);
   });

@@ -1,12 +1,7 @@
 // index.js
 import "./styles-reset.css";
 import "./styles.css";
-import {
-  Project,
-  projects,
-  setElementVisibility,
-  toggleElementVisibility,
-} from "./Project";
+import { Project, projects, setElementVisibility } from "./Project";
 import { drawProjects, drawProject } from "./UI";
 
 let selectedProjectIndex = 0;
@@ -19,7 +14,7 @@ console.log("loaded");
 
 // Initial rendering
 drawProjects(projects, selectedProjectIndex, updateSelectedIndex);
-drawProject(projects[selectedProjectIndex]);
+drawProject(projects[selectedProjectIndex], selectedProjectIndex);
 
 const projectTitleInput = document.getElementById("project-title");
 const projectDescriptionInput = document.getElementById("project-description");
@@ -54,6 +49,6 @@ submitProjectBtn.addEventListener("click", (event) => {
     console.log(`project index: ${projects.length - 1}`);
 
     drawProjects(projects, projects.length - 1, updateSelectedIndex);
-    drawProject(projects[projects.length - 1]);
+    drawProject(projects[projects.length - 1], selectedProjectIndex);
   }
 });

@@ -164,7 +164,7 @@ header div:last-child {
   padding: 10px;
 }
 
-.todo:first .priority-up {
+.todo:first-child .priority-up {
   display: none;
 }
 

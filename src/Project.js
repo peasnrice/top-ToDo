@@ -1,5 +1,6 @@
 // Project.js
-import { ToDo } from "./ToDo.js";
+import { ToDo, swapPriority } from "./ToDo.js";
+import { drawProject } from "./UI.js";
 
 // Create some sample todos
 const sampleTodos = [
@@ -9,7 +10,6 @@ const sampleTodos = [
     "2024-11-01",
     "2024-11-10",
     "blue",
-    "high",
     "Use Figma for wireframing.",
     false
   ),
@@ -19,7 +19,15 @@ const sampleTodos = [
     "2024-11-02",
     "2024-11-20",
     "green",
-    "medium",
+    "Ensure proper documentation with Swagger.",
+    false
+  ),
+  new ToDo(
+    "Derpin About",
+    "did a derp.",
+    "2024-11-02",
+    "2024-11-20",
+    "green",
     "Ensure proper documentation with Swagger.",
     false
   ),
@@ -68,7 +76,13 @@ function Project(title, description) {
     return todos;
   }
 
-  return { title, description, addToDoToProject, getToDos };
+  function swapToDos(indexA, indexB) {
+    let temp = todos[indexA];
+    todos[indexA] = todos[indexB];
+    todos[indexB] = temp;
+  }
+
+  return { title, description, addToDoToProject, getToDos, swapToDos };
 }
 
 // find key elements on the page to watch
@@ -104,6 +118,86 @@ cancelProjectBtn.addEventListener("click", () => {
   setElementVisibility(projectFormBtn, true);
   projectTitleInput.value = "";
   projectDescriptionInput.value = "";
+});
+
+const projectContainer = document.getElementById("project-container");
+projectContainer.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  console.log(e.target.id);
+  const createToDoFormContainer = document.getElementById(
+    "todo-create-form-container"
+  );
+  const todoTitle = document.getElementById("todo-title");
+  const todoDescription = document.getElementById("todo-description");
+  const todoCreateDate = document.getElementById("todo-create-date");
+  const todoDueDate = document.getElementById("todo-due-date");
+  const projectIndex = document.getElementById("todo-project-index");
+  if (e.target && e.target.id === "create-to-do-btn") {
+    e.preventDefault();
+
+    setElementVisibility(createToDoFormContainer, true);
+    setElementVisibility(e.target, false);
+  }
+
+  if (e.target && e.target.id === "todo-cancel") {
+    e.preventDefault();
+    setElementVisibility(createToDoFormContainer, false);
+    setElementVisibility(document.getElementById("create-to-do-btn"), true);
+    document.getElementById("todo-title").value = "";
+    document.getElementById("todo-description").value = "";
+    document.getElementById("todo-create-date").value = "";
+    document.getElementById("todo-due-date").value = "";
+  }
+
+  if (e.target && e.target.id === "todo-create") {
+    e.preventDefault();
+    const newToDo = ToDo(
+      todoTitle.value,
+      todoDescription.value,
+      todoCreateDate.value || new Date().toISOString().split("T")[0], // Default to today's date if empty
+      todoDueDate.value,
+      null, // Color can remain null if not provided
+      projects[projectIndex.value].getToDosLength(), // Set a default priority if not provided
+      "", // Default notes to an empty string
+      false // Default complete status
+    );
+
+    console.log(newToDo);
+
+    projects[projectIndex.value].addToDoToProject(newToDo);
+    setElementVisibility(projectFormContainer, false);
+    setElementVisibility(projectFormBtn, true);
+    projectTitleInput.value = "";
+    projectDescriptionInput.value = "";
+    drawProject(projects[projectIndex.value], projectIndex.value);
+  }
+
+  if (e.target && e.target.id.includes("priority-up")) {
+    // Handle priority up click
+    console.log("Priority Up button clicked:", e.target.id);
+    // You can also extract the index from the id, if needed
+    const index = parseInt(e.target.id.split("-")[2]);
+    console.log(index);
+
+    projects[projectIndex.value].swapToDos(index, index - 1);
+    console.log("Item index:", index);
+    drawProject(projects[projectIndex.value], projectIndex.value);
+    // Call function to increase priority for the item at this index
+  }
+
+  if (e.target && e.target.id.includes("priority-down")) {
+    // Handle priority down click
+    console.log("Priority Down button clicked:", e.target.id);
+    const index = parseInt(e.target.id.split("-")[2]);
+    console.log(index);
+
+    projects[projectIndex.value].swapToDos(index, index + 1);
+
+    console.log("Item index:", index);
+    drawProject(projects[projectIndex.value], projectIndex.value);
+    // Call function to decrease priority for the item at this index
+  }
 });
 
 export { Project, projects, setElementVisibility, toggleElementVisibility };

@@ -17,7 +17,7 @@ header {
 
 header div {
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 header div:first-child {
@@ -67,7 +67,7 @@ header div:last-child {
 
 .project-card:hover {
   cursor: pointer;
-  background-color: rgba(0, 251, 255, 0.5);
+  background-color: #98dfaf;
 }
 
 #project-container {
@@ -78,14 +78,13 @@ header div:last-child {
 
 #project-todos {
   display: grid;
-  gap: 2px;
+  gap: 10px;
 }
 
 .todo {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid black;
   padding: 10px;
 }
 
@@ -177,16 +176,22 @@ header div:last-child {
 }
 
 .todo-content {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   text-align: left;
   padding: 10px;
 }
 
 .todo:first-child .priority-up {
+  /* filter: grayscale(100%); */
   display: none;
 }
 
 .todo:last-child .priority-down {
+  /* filter: grayscale(100%); */
   display: none;
 }
 
@@ -202,7 +207,7 @@ header div:last-child {
 }
 
 .complete {
-  background-color: forestgreen;
+  background-color: #f9db6d;
 }
 
 input[type="checkbox"] {
@@ -216,7 +221,9 @@ input[type="checkbox"] {
 }
 
 #create-project-btn,
-#submit-project-btn {
+#submit-project-btn,
+#create-to-do-btn,
+#todo-create {
   background-color: #414288;
   color: white;
   border-radius: 5px;
@@ -229,9 +236,42 @@ input[type="checkbox"] {
   gap: 5px;
 }
 
-#cancel-project-btn {
+#cancel-project-btn,
+.todo-delete,
+#todo-cancel,
+.project-delete-button {
   background-color: #ea638c;
   color: white;
   border-radius: 5px;
   border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.todo-delete,
+.project-delete-button {
+  background-color: #ea638c;
+  padding: 10px;
+}
+
+.content-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  gap: 10px;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+#project-header-wrapper {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }

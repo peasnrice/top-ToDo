@@ -1,5 +1,5 @@
 //UI.js
-import { format, parseISO, isBefore, addDays } from "date-fns";
+import { differenceInCalendarDays } from "date-fns";
 
 // Initial setup for UI elements
 const projectContainer = document.getElementById("project-container");
@@ -37,6 +37,15 @@ function drawProject(project, selectedProjectIndex) {
   projectContainer.innerHTML = "";
 
   // Create and append project details
+
+  const projectHeaderWrapper = document.createElement("div");
+  projectHeaderWrapper.setAttribute("id", "project-header-wrapper");
+
+  const projectDetailsContainer = document.createElement("div");
+  projectDetailsContainer.setAttribute("id", "project-details-container");
+  const projectDeleteContainer = document.createElement("div");
+  projectDeleteContainer.setAttribute("id", "project-delete-container");
+
   const projectDetails = document.createElement("div");
   projectDetails.classList.add("project-details");
 
@@ -46,9 +55,22 @@ function drawProject(project, selectedProjectIndex) {
   const projectDescription = document.createElement("p");
   projectDescription.innerText = project.description;
 
-  projectDetails.appendChild(projectTitle);
-  projectDetails.appendChild(projectDescription);
-  projectContainer.appendChild(projectDetails);
+  projectDetailsContainer.appendChild(projectTitle);
+  projectDetailsContainer.appendChild(projectDescription);
+
+  const projectDeleteBtn = document.createElement("button");
+  projectDeleteBtn.setAttribute(
+    "id",
+    `project-delete-button-${selectedProjectIndex}`
+  );
+  projectDeleteBtn.classList.add("project-delete-button");
+  projectDeleteBtn.textContent = "Delete Project";
+  projectDeleteContainer.appendChild(projectDeleteBtn);
+
+  projectHeaderWrapper.appendChild(projectDetailsContainer);
+  projectHeaderWrapper.appendChild(projectDeleteContainer);
+
+  projectContainer.appendChild(projectHeaderWrapper);
 
   // Create the main project-todos container
   const projectToDos = document.createElement("div");
@@ -87,12 +109,6 @@ function drawProject(project, selectedProjectIndex) {
     priorityButtons.appendChild(priorityUpBtn);
     priorityButtons.appendChild(priorityDownBtn);
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.name = "todo-complete";
-    checkbox.id = `todo-complete-${index}`;
-    checkbox.checked = todo.complete;
-
     const todoTitle = document.createElement("p");
     todoTitle.classList.add("todo-title");
     todoTitle.setAttribute("required", "true");
@@ -101,7 +117,6 @@ function drawProject(project, selectedProjectIndex) {
 
     // Append elements to the left section
     leftSection.appendChild(priorityButtons);
-    leftSection.appendChild(checkbox);
     leftSection.appendChild(todoTitle);
 
     // Create the right section of the header
@@ -121,9 +136,21 @@ function drawProject(project, selectedProjectIndex) {
     todoPriority.classList.add("hidden");
     todoPriority.innerText = todo.priority;
 
+    const dueDateCount = document.createElement("p");
+    const date = new Date();
+    const daysUntilDue = differenceInCalendarDays(todo.due_date, date);
+    if (daysUntilDue < 0) {
+      dueDateCount.textContent = `OVERDUE BY ${daysUntilDue}`;
+    } else if (daysUntilDue == 0) {
+      dueDateCount.textContent = "Due Today!";
+    } else {
+      dueDateCount.textContent = `Due in ${daysUntilDue} days`;
+    }
+
     // Append elements to the right section
+    rightSection.appendChild(dueDateCount);
     rightSection.appendChild(todoDueDate);
-    rightSection.appendChild(todoPriority);
+    // rightSection.appendChild(todoPriority);
 
     // Append left and right sections to the header
     todoHeader.appendChild(leftSection);
@@ -132,6 +159,11 @@ function drawProject(project, selectedProjectIndex) {
     // Create the todo-content section
     const todoContent = document.createElement("div");
     todoContent.classList.add("todo-content");
+
+    const contentLeft = document.createElement("div");
+    contentLeft.classList.add("content-left");
+    const contentRight = document.createElement("div");
+    contentRight.classList.add("content-right");
 
     const todoDescription = document.createElement("p");
     todoDescription.classList.add("todo-descriptions");
@@ -146,10 +178,27 @@ function drawProject(project, selectedProjectIndex) {
     todoDelete.classList.add("todo-delete");
     todoDelete.innerText = "Delete ToDo";
 
+    const checkboxContainer = document.createElement("div");
+    checkboxContainer.classList.add("checkbox-container");
+    const checkboxMessage = document.createElement("p");
+    checkboxMessage.textContent = "Complete";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "todo-complete";
+    checkbox.id = `todo-complete-${index}`;
+    checkbox.checked = todo.complete;
+
+    checkboxContainer.appendChild(checkboxMessage);
+    checkboxContainer.appendChild(checkbox);
+
     // Append elements to the content section
-    todoContent.appendChild(todoDescription);
-    todoContent.appendChild(todoNotes);
-    todoContent.appendChild(todoDelete);
+    contentLeft.appendChild(todoDescription);
+    contentLeft.appendChild(todoNotes);
+    contentRight.appendChild(checkboxContainer);
+    contentRight.appendChild(todoDelete);
+
+    todoContent.appendChild(contentLeft);
+    todoContent.appendChild(contentRight);
 
     // Append header and content to the main todo element
     todoElement.appendChild(todoHeader);

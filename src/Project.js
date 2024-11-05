@@ -1,6 +1,6 @@
 // Project.js
 import { ToDo, swapPriority } from "./ToDo.js";
-import { drawProject } from "./UI.js";
+import { drawProject, drawProjects } from "./UI.js";
 
 // Create some sample todos
 const sampleTodos = [
@@ -34,7 +34,7 @@ const sampleTodos = [
 ];
 
 // pre-populated projects for testing
-const projects = [
+let projects = [
   new Project(
     "Website Redesign",
     "Redesign the company website to improve user experience and mobile responsiveness."
@@ -89,11 +89,7 @@ function Project(title, description) {
   }
 
   function deleteToDoAtIndex(index) {
-    console.log(todos.length);
-
     todos = todos.slice(0, index).concat(todos.slice(index + 1));
-
-    console.log(todos.length);
   }
 
   return {
@@ -107,6 +103,47 @@ function Project(title, description) {
   };
 }
 
+function deleteProjectAtIndex(index) {
+  console.log(index);
+
+  const projectForDeletion = document.getElementById(`project-card-${index}`);
+  const toDosForDeletion = document.getElementById(`project-container`);
+
+  if (projectForDeletion) {
+    projectForDeletion.innerHTML = "";
+  }
+  if (toDosForDeletion) {
+    toDosForDeletion.innerHTML = "";
+  }
+
+  // Use splice to remove the project object from the projects array
+  projects.splice(index, 1);
+
+  // Attempt to get `todo-project-index`
+  const projectIndex = document.getElementById("todo-project-index");
+  if (projectIndex) {
+    projectIndex.value = 0;
+  } else {
+    console.warn("Element with id 'todo-project-index' not found.");
+  }
+
+  console.log("Remaining projects:", projects.length);
+
+  // Refresh the projects and selected project view
+  drawProjects(projects, 0, (newIndex) => {
+    if (projectIndex) {
+      projectIndex.value = newIndex;
+    }
+  });
+
+  // Draw the first project in the list, if any, or clear the view
+  if (projects.length > 0) {
+    drawProject(projects[0], 0);
+  } else {
+    projectContainer.innerHTML = "<p>No projects available</p>";
+  }
+}
+
 // find key elements on the page to watch
 const projectCards = document.getElementById("project-cards");
 const projectFormBtn = document.getElementById("create-project-btn");
@@ -117,8 +154,11 @@ const projectFormContainer = document.getElementById(
 projectFormBtn.addEventListener("click", () => {
   // toggle display of project form container
 
-  setElementVisibility(projectFormContainer, true);
+  // setElementVisibility(projectFormContainer, true);
+  // setElementVisibility(projectFormBtn, false);
   setElementVisibility(projectFormBtn, false);
+  setElementVisibility(projectForm, true);
+  setElementVisibility(cancelProjectBtn, true);
 });
 
 function setElementVisibility(element, visibility) {
@@ -134,12 +174,12 @@ function toggleElementVisibility(element) {
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
 const projectTitleInput = document.getElementById("project-title");
 const projectDescriptionInput = document.getElementById("project-description");
-const constprojectForm = document.getElementById("project-form");
+const projectForm = document.getElementById("project-form");
 
 cancelProjectBtn.addEventListener("click", () => {
   // setElementVisibility(projectFormContainer, false);
-  // setElementVisibility(projectFormBtn, true);
-  setElementVisibility(constprojectForm, false);
+  setElementVisibility(projectFormBtn, true);
+  setElementVisibility(projectForm, false);
   setElementVisibility(cancelProjectBtn, false);
   projectTitleInput.value = "";
   projectDescriptionInput.value = "";
@@ -157,11 +197,13 @@ projectContainer.addEventListener("click", (e) => {
   const todoDueDate = document.getElementById("todo-due-date");
   const projectIndex = document.getElementById("todo-project-index");
   const toDoCancel = document.getElementById("todo-cancel");
+  const submitProjectBtn = document.getElementById("submit-project-btn");
 
   if (e.target && e.target.id === "create-to-do-btn") {
     e.preventDefault();
     setElementVisibility(createToDoFormContainer, true);
     setElementVisibility(e.target, false);
+    setElementVisibility(submitProjectBtn, true);
     setElementVisibility(toDoCancel, true);
   }
 
@@ -241,6 +283,12 @@ projectContainer.addEventListener("click", (e) => {
     const index = parseInt(e.target.id.split("-")[2]);
     projects[projectIndex.value].deleteToDoAtIndex(index);
     drawProject(projects[projectIndex.value], projectIndex.value);
+  }
+
+  if (e.target && e.target.id.includes("project-delete-button")) {
+    e.preventDefault();
+    const index = parseInt(e.target.id.split("-")[3]);
+    deleteProjectAtIndex(index);
   }
 });
 

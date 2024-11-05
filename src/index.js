@@ -20,6 +20,9 @@ const projectTitleInput = document.getElementById("project-title");
 const projectDescriptionInput = document.getElementById("project-description");
 const submitProjectBtn = document.getElementById("submit-project-btn");
 const projectFormBtn = document.getElementById("create-project-btn");
+const projectForm = document.getElementById("project-form");
+const cancelProjectBtn = document.getElementById("cancel-project-btn");
+
 const projectFormContainer = document.getElementById(
   "project-create-form-container"
 );
@@ -41,8 +44,9 @@ submitProjectBtn.addEventListener("click", (event) => {
 
     // push project to project array
     projects.push(newProject);
-    setElementVisibility(projectFormContainer, false);
     setElementVisibility(projectFormBtn, true);
+    setElementVisibility(projectForm, false);
+    setElementVisibility(cancelProjectBtn, false);
     projectTitleInput.value = "";
     projectDescriptionInput.value = "";
 

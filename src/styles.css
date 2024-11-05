@@ -1,3 +1,7 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -6,6 +10,9 @@ header {
   display: flex;
   justify-content: center;
   align-content: center;
+  background-color: #414288;
+  color: white;
+  font-weight: bold;
 }
 
 header div {
@@ -43,6 +50,8 @@ header div:last-child {
   gap: 10px;
   min-width: 200px;
   justify-content: start;
+  background-color: #deefb7;
+  padding: 10px;
 }
 
 #project-cards {
@@ -52,7 +61,8 @@ header div:last-child {
 }
 
 .project-card {
-  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .project-card:hover {
@@ -104,6 +114,8 @@ header div:last-child {
   display: flex;
   flex-direction: column;
   justify-content: start;
+  background-color: #5fb49c;
+  padding: 10px;
 }
 
 #project-container .project-details {
@@ -132,13 +144,15 @@ header div:last-child {
 }
 
 .selected {
-  background-color: aqua;
+  background-color: #5fb49c;
 }
 
 .todo {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  background-color: #98dfaf;
+  border-radius: 5px;
 }
 
 .todo-header {
@@ -189,4 +203,35 @@ header div:last-child {
 
 .complete {
   background-color: forestgreen;
+}
+
+input[type="checkbox"] {
+  /* 1.5x Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 5px;
+}
+
+#create-project-btn,
+#submit-project-btn {
+  background-color: #414288;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+#project-create-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#cancel-project-btn {
+  background-color: #ea638c;
+  color: white;
+  border-radius: 5px;
+  border: none;
 }

@@ -88,6 +88,14 @@ function Project(title, description) {
     console.log(todos[index]);
   }
 
+  function deleteToDoAtIndex(index) {
+    console.log(todos.length);
+
+    todos = todos.slice(0, index).concat(todos.slice(index + 1));
+
+    console.log(todos.length);
+  }
+
   return {
     title,
     description,
@@ -95,6 +103,7 @@ function Project(title, description) {
     getToDos,
     swapToDos,
     toggleCheckbox,
+    deleteToDoAtIndex,
   };
 }
 
@@ -125,10 +134,13 @@ function toggleElementVisibility(element) {
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
 const projectTitleInput = document.getElementById("project-title");
 const projectDescriptionInput = document.getElementById("project-description");
+const constprojectForm = document.getElementById("project-form");
 
 cancelProjectBtn.addEventListener("click", () => {
-  setElementVisibility(projectFormContainer, false);
-  setElementVisibility(projectFormBtn, true);
+  // setElementVisibility(projectFormContainer, false);
+  // setElementVisibility(projectFormBtn, true);
+  setElementVisibility(constprojectForm, false);
+  setElementVisibility(cancelProjectBtn, false);
   projectTitleInput.value = "";
   projectDescriptionInput.value = "";
 });
@@ -166,24 +178,29 @@ projectContainer.addEventListener("click", (e) => {
 
   if (e.target && e.target.id === "todo-create") {
     e.preventDefault();
-    const newToDo = ToDo(
-      todoTitle.value,
-      todoDescription.value,
-      todoCreateDate.value || new Date().toISOString().split("T")[0], // Default to today's date if empty
-      todoDueDate.value,
-      null, // Color can remain null if not provided
-      "", // Default notes to an empty string
-      false // Default complete status
-    );
 
-    console.log(newToDo);
+    if (todoTitle.value.length <= 20 && todoTitle.value.length > 0) {
+      const newToDo = ToDo(
+        todoTitle.value,
+        todoDescription.value,
+        todoCreateDate.value || new Date().toISOString().split("T")[0], // Default to today's date if empty
+        todoDueDate.value,
+        null, // Color can remain null if not provided
+        "", // Default notes to an empty string
+        false // Default complete status
+      );
 
-    projects[projectIndex.value].addToDoToProject(newToDo);
-    setElementVisibility(projectFormContainer, false);
-    setElementVisibility(projectFormBtn, true);
-    projectTitleInput.value = "";
-    projectDescriptionInput.value = "";
-    drawProject(projects[projectIndex.value], projectIndex.value);
+      console.log(newToDo);
+
+      projects[projectIndex.value].addToDoToProject(newToDo);
+      setElementVisibility(projectFormContainer, false);
+      setElementVisibility(projectFormBtn, true);
+      projectTitleInput.value = "";
+      projectDescriptionInput.value = "";
+      drawProject(projects[projectIndex.value], projectIndex.value);
+    } else {
+      alert("ToDo Title cannot be blank!");
+    }
   }
 
   if (e.target && e.target.id.includes("priority-up")) {
@@ -216,6 +233,13 @@ projectContainer.addEventListener("click", (e) => {
     const index = parseInt(e.target.id.split("-")[2]);
     console.log(index);
     projects[projectIndex.value].toggleCheckbox(index);
+    drawProject(projects[projectIndex.value], projectIndex.value);
+  }
+
+  // delete todo
+  if (e.target && e.target.id.includes("todo-delete")) {
+    const index = parseInt(e.target.id.split("-")[2]);
+    projects[projectIndex.value].deleteToDoAtIndex(index);
     drawProject(projects[projectIndex.value], projectIndex.value);
   }
 });

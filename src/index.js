@@ -52,5 +52,7 @@ submitProjectBtn.addEventListener("click", (event) => {
 
     drawProjects(projects, projects.length - 1, updateSelectedIndex);
     drawProject(projects[projects.length - 1], selectedProjectIndex);
+  } else {
+    alert("Project Title cannot be blank!");
   }
 });

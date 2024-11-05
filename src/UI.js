@@ -95,6 +95,8 @@ function drawProject(project, selectedProjectIndex) {
 
     const todoTitle = document.createElement("p");
     todoTitle.classList.add("todo-title");
+    todoTitle.setAttribute("required", "true");
+
     todoTitle.innerText = todo.title;
 
     // Append elements to the left section
@@ -139,9 +141,15 @@ function drawProject(project, selectedProjectIndex) {
     todoNotes.classList.add("todo-notes");
     todoNotes.innerText = todo.notes;
 
+    const todoDelete = document.createElement("button");
+    todoDelete.setAttribute("id", `todo-delete-${index}`);
+    todoDelete.classList.add("todo-delete");
+    todoDelete.innerText = "Delete ToDo";
+
     // Append elements to the content section
     todoContent.appendChild(todoDescription);
     todoContent.appendChild(todoNotes);
+    todoContent.appendChild(todoDelete);
 
     // Append header and content to the main todo element
     todoElement.appendChild(todoHeader);

@@ -23,10 +23,6 @@ const projectFormBtn = document.getElementById("create-project-btn");
 const projectForm = document.getElementById("project-form");
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
 
-const projectFormContainer = document.getElementById(
-  "project-create-form-container"
-);
-
 submitProjectBtn.addEventListener("click", (event) => {
   // prevent submit default behaviour
   event.preventDefault();

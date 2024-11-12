@@ -1,5 +1,5 @@
 // Project.js
-import { ToDo, swapPriority } from "./ToDo.js";
+import { ToDo } from "./ToDo.js";
 import { drawProject, drawProjects } from "./UI.js";
 
 // Create some sample todos
@@ -58,8 +58,8 @@ let projects = [
 ];
 
 // Add dummy todo content to all projects
-projects.forEach((project, index) => {
-  sampleTodos.forEach((todo, index) => {
+projects.forEach((project) => {
+  sampleTodos.forEach((todo) => {
     project.addToDoToProject(todo);
   });
 });
@@ -145,7 +145,6 @@ function deleteProjectAtIndex(index) {
 }
 
 // find key elements on the page to watch
-const projectCards = document.getElementById("project-cards");
 const projectFormBtn = document.getElementById("create-project-btn");
 const projectFormContainer = document.getElementById(
   "project-create-form-container"
@@ -291,10 +290,5 @@ projectContainer.addEventListener("click", (e) => {
     deleteProjectAtIndex(index);
   }
 });
-
-const projectToDos = document.getElementById("project-todos");
-// projectToDos.addEventListener("click", (e) => {
-//   let target = e.target;
-// });
 
 export { Project, projects, setElementVisibility, toggleElementVisibility };
